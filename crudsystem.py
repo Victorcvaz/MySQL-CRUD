@@ -11,21 +11,33 @@ database='bullshit'
 
 cursor = conection.cursor()
 
-# CRUD
+# SQL comands #
 
+# Init #
+
+while True:
+    init = crud.init()
+    if init == 0:
+        print("\033[1;32mCheck back often!\033[m")
+        break
 # CREATE
 
-#### crud.create(cursor, conection)
+    if init == 1:
+        crud.create(cursor, conection)
 
 # READ
-
-#### crud.select(cursor)
+    if init == 2:
+        crud.select(cursor)
 
 # UPDATE
-
-crud.update(cursor, conection)
+    if init == 3:
+        crud.update(cursor, conection)
 
 # DELETE
+    if init == 4:
+        crud.delete(cursor, conection)
+
+# Ending #
 cursor.close()
 conection.close()
   
