@@ -3,7 +3,7 @@ import crudfunctions.valid as valid
 
 def init():
     print()
-    comands = ["INSERT INTO", "SELECT", "UPDATE", "DELETE", "0"]
+    comands = ["Insert", "Display", "Update", "Delete", "0"]
     print('\033[1;34m_\033[m' *18)
     for i, v in enumerate(comands):
         print(f"\033[1;34m{i+1:<4}\033[m-> \033[1;36m{v}\033[m")
@@ -17,29 +17,27 @@ def init():
 
 
 def create(pointer, conect):
-    name = valid.product("\033[1;34mEnter the product name: \033[m")
-    value = valid.value("\033[1;36mEnter the product value: \033[m")
-    comand = f'INSERT INTO products (product, value) VALUES ("{name}", {value})'
+    name = valid.string("\033[4;32mName: \033[m")
+    prof = valid.string("\033[4;33mProfession: \033[m")
+    birth = valid.date("\033[4;34mBirthDate Ex.[2020-12-30]: \033[m")
+    sex = valid.enum("\033[4;35mSex [M/F]: \033m")
+    weight = valid.value("\033[4;36mWeight: \033[m")
+    hight = valid.value("\033[4;37mHight: \033[m")
+    nacionality = valid.string("\033[1;36mNacionality: \033[m")
+    comand = f'INSERT INTO people (name, profession, birth, sex, weight, hight, nationality) VALUES ("{name}", "{prof}", "{birth}", "{sex}", "{weight}", "{hight}", "{nacionality}")'
     pointer.execute(comand)
     conect.commit() # edit the database
-    print(f"Product \033[1;32m{name}\033[m in the value of \033[1;32m{value}\033[mR$ added successfully!")
+    print(f"\033[1;32m{name}\033[m added successfully!")
 
 
 def select(pointer):
-    comand = f"SELECT * FROM products"
+    comand = f"SELECT * FROM people"
     pointer.execute(comand)
     result = pointer.fetchall()
     print('\033[1;32m_\033[m' *30)
-    print(f"\033[7;33m{'ID':<2}\033[m\033[7;32m{'Name':^20}\033[m\033[7;37m{'Price'}\033[m")
     print()
     for i, v in enumerate(result):
-        for g, u in enumerate(v):
-            if g == 0:
-                print(f"\033[7;33m{u:<2}\033[m", end="")
-            if g == 1:
-                print(f"\033[7;32m{u:^20}\033[m", end="")
-            if g == 2:
-                print(f"\033[7;37m{u:.2f}\033[m", end="") 
+        print(v)
         print()
     print('\033[1;32m_\033[m' *30)
 
